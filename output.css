@@ -551,3 +551,16 @@ video {
 .flex {
   display: flex;
 }
+
+.w-dvw {
+  width: 100dvw;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-xl {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+}

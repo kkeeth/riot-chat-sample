@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "css": "tailwindcss -i ./src/input.css -o ./src/output.css",
+    "css": "tailwindcss -i ./src/input.css -o ./output.css",
     "preview": "vite preview"
   },
   "devDependencies": {

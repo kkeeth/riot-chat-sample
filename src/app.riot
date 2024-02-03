@@ -1,8 +1,10 @@
 <app>
-  <h1>{ props.title }</h1>
-  <p class="flex ml-4">Count: { state.count }</p>
-  <button onclick={ increment }>Increment</button>
-  <button onclick={ decrement }>Decrement</button>
+  <div class="w-dvw">
+    <h1 class="text-center">{ props.title }</h1>
+    <p class="flex ml-4 text-xl">Count: { state.count }</p>
+    <button onclick={ increment }>Increment</button>
+    <button onclick={ decrement }>Decrement</button>
+  </div>
 
   <script lang="ts">
     import { RiotComponent, withTypes } from 'riot'
