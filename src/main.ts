@@ -1,10 +1,10 @@
-import './style.css'
-import * as riot from 'riot'
+import "@riotjs/hot-reload";
+import { component } from "riot";
 
-import App from './app.riot'
+import "./style.css";
+import App from "./app.riot";
 
-const mountApp = riot.component(App)
-const app = mountApp(
-  document.getElementById('root'),
-  { message: 'Hello World', items: [] }
-)
+const mountApp = component(App);
+mountApp(document.getElementById("root"), {
+  message: "Hello RiotJS",
+});

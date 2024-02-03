@@ -1,3 +1,26 @@
 <app>
-  <p>{ props.message }</p>
+  <h1>{ props.message }</h1>
+  <p>Count: { state.count }</p>
+  <button onclick={ increment }>Increment</button>
+  <button onclick={ decrement }>Decrement</button>
+
+  <script lang="ts">
+    import { RiotComponent, withTypes } from 'riot'
+    import { AppComponentProps, AppComponentState } from './types'
+
+    export interface AppComponent extends RiotComponent<AppComponentProps, AppComponentState> {
+    }
+
+    export default withTypes<AppComponent>({
+      state: {
+        count: 0
+      },
+      increment() {
+        this.update({ count: this.state.count + 1 })
+      },
+      decrement() {
+        this.update({ count: this.state.count - 1 })
+      }
+    })
+  </script>
 </app>
