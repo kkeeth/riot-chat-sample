@@ -5,7 +5,7 @@
   "type": "module",
   "main": "src/main.ts",
   "scripts": {
-    "dev": "vite && css",
+    "dev": "vite",
     "build": "vite build",
     "css": "tailwindcss -i ./src/input.css -o ./src/output.css",
     "preview": "vite preview"
