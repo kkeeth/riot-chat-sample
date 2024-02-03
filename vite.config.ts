@@ -1,27 +1,23 @@
 import { defineConfig } from "vite";
 import { compile } from "@riotjs/compiler";
 import ts from "typescript";
-import typescript from "@rollup/plugin-typescript";
 import fs from "fs";
 import path from "path";
+import typescript from "@rollup/plugin-typescript";
 
-// Riot.js用のカスタムプラグイン
 const riotPlugin = () => {
   return {
     name: "riot",
     transform(src: string, id: string) {
       if (id.endsWith(".riot")) {
-        // .riotファイルをJavaScriptにコンパイル
         const { code: riotCompiledCode } = compile(src, { file: id });
 
-        // コンパイルされたコードを一時ファイルに書き込む
         const tempFilePath = path.resolve("./temp", path.basename(id) + ".ts");
         if (!fs.existsSync(path.dirname(tempFilePath))) {
           fs.mkdirSync(path.dirname(tempFilePath), { recursive: true });
         }
         fs.writeFileSync(tempFilePath, riotCompiledCode);
 
-        // TypeScriptトランスパイラを使用してコードをトランスパイル
         const tsResult = ts.transpileModule(riotCompiledCode, {
           compilerOptions: {
             module: ts.ModuleKind.ESNext,
@@ -29,7 +25,6 @@ const riotPlugin = () => {
           },
         });
 
-        // 一時ファイルを削除
         fs.unlinkSync(tempFilePath);
 
         return {
@@ -44,12 +39,7 @@ const riotPlugin = () => {
 };
 
 export default defineConfig({
-  plugins: [
-    riotPlugin(),
-    typescript({
-      tsconfig: "./tsconfig.json",
-    }),
-  ],
+  plugins: [riotPlugin(), typescript()],
   build: {
     outDir:
       "dist" /** https://vitejs.dev/config/build-options.html#build-outdir */,
