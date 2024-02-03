@@ -5,8 +5,9 @@
   "type": "module",
   "main": "src/main.ts",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite && css",
     "build": "vite build",
+    "css": "tailwindcss -i ./src/input.css -o ./src/output.css",
     "preview": "vite preview"
   },
   "devDependencies": {
