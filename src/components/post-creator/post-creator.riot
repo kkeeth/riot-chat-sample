@@ -1,22 +1,58 @@
 <post-creator>
-  <form onsubmit="{ submitPost }">
+  <button
+    type="button"
+    if={!state.isLoggedIn}
+    onclick={signInWithGoogle}
+  >Google でログイン</button>
+  <form onsubmit="{ submitPost }" if={state.isLoggedIn}>
     <textarea placeholder="What's happening?" value={state.message} onchange={edit} required></textarea>
     <button type="submit">Post</button>
+    <button onclick={signOut}>ログアウト</button>
   </form>
 
   <script>
     import { RiotComponent, withTypes } from 'riot';
+    import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
     import { PostCreatorComponentProps, PostCreatorComponentState } from './types';
     import { postToTimeline } from '@/services/postService';
+    import { auth } from "@/modules/firebase";
+    import { handleFirebaseError } from "@/modules/handleFirebaseError";
 
     export interface PostCreatorComponent extends RiotComponent<PostCreatorComponentProps, PostCreatorComponentState> {
       edit: (e: Event) => void;
       submitPost: (e: Event) => void;
+      signInWithGoogle: (email: string, password: string) => void;
     }
 
     export default withTypes<PostCreatorComponent>({
       state: {
         message: 'hoge',
+        isLoggedIn: false,
+        user: null,
+      },
+      onBeforeMount() {
+        auth.onAuthStateChanged((user) => {
+          this.update({ isLoggedIn: !!user })
+        });
+      },
+      signInWithGoogle(e: MouseEvent<HTMLButtonElement>) {
+        e.preventDefault();
+        const provider = new GoogleAuthProvider();
+        signInWithPopup(auth, provider)
+          .then((result) => {
+            console.log("Signin with Google success!");
+            this.update({ user: result.user, isLoggedIn: true });
+          })
+          .catch((firebaseError) => {
+            console.error(firebaseError.code, handleFirebaseError(firebaseError));
+          });
+      },
+      signOut() {
+        auth.signOut().then(() => {
+          this.update({ isLoggedIn: false });
+        }).catch((error) => {
+          console.error(handleFirebaseError(error));
+        });
       },
       edit(e) {
         this.update({
