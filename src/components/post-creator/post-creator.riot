@@ -26,13 +26,13 @@
 
     export default withTypes<PostCreatorComponent>({
       state: {
-        message: 'hoge',
+        message: '',
         isLoggedIn: false,
         user: null,
       },
       onBeforeMount() {
         auth.onAuthStateChanged((user) => {
-          this.update({ isLoggedIn: !!user })
+          this.update({ isLoggedIn: !!user, user})
         });
       },
       signInWithGoogle(e: MouseEvent<HTMLButtonElement>) {
@@ -61,7 +61,15 @@
       },
       submitPost(e) {
         e.preventDefault();
-        postToTimeline({ message: this.state.message, timestamp: new Date(), icon: 'default-icon.png' });
+        postToTimeline({
+          message: this.state.message,
+          timestamp: new Date(),
+          icon: this.state.user.photoURL,
+          name: this.state.user.displayName
+        })
+          .then((posts) => {
+            console.log(posts);
+          })
         this.update({ message: '' })
       }
     })

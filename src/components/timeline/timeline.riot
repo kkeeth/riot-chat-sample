@@ -1,5 +1,6 @@
 <timeline>
   <div each={post in posts}>
+    <h3>{post.name}</h3>
     <user-icon src={post.icon}></user-icon>
     <p>{post.message}</p>
     <small>{formatDate(post.timestamp)}</small>

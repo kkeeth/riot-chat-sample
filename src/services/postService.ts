@@ -12,6 +12,7 @@ interface Post {
   message: string;
   timestamp?: Timestamp;
   icon: string;
+  name: string;
 }
 
 const postToTimeline = async (post: Post): Promise<void> => {
