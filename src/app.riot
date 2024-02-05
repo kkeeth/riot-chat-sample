@@ -1,31 +1,24 @@
 <app>
   <div class="w-dvw">
     <h1 class="text-center">{ props.title }</h1>
-    <p class="flex ml-4 text-xl">Count: { state.count }</p>
-    <button onclick={ increment }>Increment</button>
-    <button onclick={ decrement }>Decrement</button>
+    <post-creator />
+    <timeline />
   </div>
 
   <script lang="ts">
     import { RiotComponent, withTypes } from 'riot'
     import { AppComponentProps, AppComponentState } from './types'
+    import PostCreator from './components/post-creator/post-creator.riot'
+    import Timeline from './components/timeline/timeline.riot'
 
     export interface AppComponent extends RiotComponent<AppComponentProps, AppComponentState> {
     }
 
     export default withTypes<AppComponent>({
-      state: {
-        count: 0
+      components: {
+        PostCreator,
+        Timeline,
       },
-      hoge() {
-        console.log('hoge')
-      },
-      increment() {
-        this.update({ count: this.state.count + 1 })
-      },
-      decrement() {
-        this.update({ count: this.state.count - 1 })
-      }
     })
   </script>
 </app>

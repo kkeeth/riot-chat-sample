@@ -1,0 +1,34 @@
+<post-creator>
+  <form onsubmit="{ submitPost }">
+    <textarea placeholder="What's happening?" value={state.message} onchange={edit} required></textarea>
+    <button type="submit">Post</button>
+  </form>
+
+  <script>
+    import { RiotComponent, withTypes } from 'riot';
+    import { PostCreatorComponentProps, PostCreatorComponentState } from './types';
+    // import { postToTimeline } from './firebaseService';
+
+    export interface PostCreatorComponent extends RiotComponent<PostCreatorComponentProps, PostCreatorComponentState> {
+      edit: (e: Event) => void;
+      submitPost: (e: Event) => void;
+    }
+
+    export default withTypes<PostCreatorComponent>({
+      state: {
+        message: 'hoge',
+      },
+      edit(e) {
+        console.log(e.target.value)
+        this.update({
+          message: e.target.value
+        });
+      },
+      submitPost(e) {
+        e.preventDefault();
+        postToTimeline({ message, timestamp: new Date(), icon: 'default-icon.png' });
+        this.update({ message: '' })
+      }
+    })
+  </script>
+</post-creator>

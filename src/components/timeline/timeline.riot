@@ -1,0 +1,37 @@
+<timeline>
+  <div each={post in posts}>
+    <user-icon src={post.icon}></user-icon>
+    <p>{post.message}</p>
+    <small>{formatDate(post.timestamp)}</small>
+  </div>
+
+  <script>
+    import { RiotComponent, withTypes, onMounted } from 'riot';
+    import { TimelineComponentProps, TimelineComponentState } from './types';
+    // import { getTimelinePosts } from './firebaseService';
+    import UserIcon from './user-icon.riot';
+
+    export interface TimelineComponent extends RiotComponent<TimelineComponentProps, TimelineComponentState> {
+      posts: TimelineComponentProps[];
+      formatDate: (timestamp: number) => string;
+    }
+
+
+    export default withTypes<TimelineComponent>({
+      components: {
+        UserIcon
+      },
+      posts: [],
+
+      onMounted() {
+        getTimelinePosts().then(posts => {
+          this.posts = posts;
+          this.update();
+        });
+      },
+      formatDate(timestamp) {
+        return new Date(timestamp).toLocaleString();
+      }
+    })
+  </script>
+</timeline>
