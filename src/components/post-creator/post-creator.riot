@@ -19,14 +19,13 @@
         message: 'hoge',
       },
       edit(e) {
-        console.log(e.target.value)
         this.update({
           message: e.target.value
         });
       },
       submitPost(e) {
         e.preventDefault();
-        postToTimeline({ message, timestamp: new Date(), icon: 'default-icon.png' });
+        postToTimeline({ message: this.state.message, timestamp: new Date(), icon: 'default-icon.png' });
         this.update({ message: '' })
       }
     })

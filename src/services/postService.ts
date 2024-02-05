@@ -10,7 +10,7 @@ import {
 
 interface Post {
   message: string;
-  timestamp?: number;
+  timestamp?: Timestamp;
   icon: string;
 }
 
