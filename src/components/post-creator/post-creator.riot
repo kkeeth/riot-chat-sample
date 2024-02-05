@@ -7,7 +7,7 @@
   <script>
     import { RiotComponent, withTypes } from 'riot';
     import { PostCreatorComponentProps, PostCreatorComponentState } from './types';
-    // import { postToTimeline } from './firebaseService';
+    import { postToTimeline } from '@/services/postService';
 
     export interface PostCreatorComponent extends RiotComponent<PostCreatorComponentProps, PostCreatorComponentState> {
       edit: (e: Event) => void;

@@ -8,8 +8,8 @@
   <script>
     import { RiotComponent, withTypes, onMounted } from 'riot';
     import { TimelineComponentProps, TimelineComponentState } from './types';
-    // import { getTimelinePosts } from './firebaseService';
-    import UserIcon from './user-icon.riot';
+    import { getTimelinePosts } from '@/services/postService';
+    import UserIcon from '../user-icon/user-icon.riot';
 
     export interface TimelineComponent extends RiotComponent<TimelineComponentProps, TimelineComponentState> {
       posts: TimelineComponentProps[];

@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "@riotjs/compiler": "^9.0.7",
+    "firebase": "^10.8.0",
     "riot": "^9.1.2"
   }
 }
