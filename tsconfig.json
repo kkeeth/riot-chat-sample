@@ -24,6 +24,6 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["**/*.ts", "src/**/*.riot", "global.d.ts"],
+  "include": ["**/*.ts", "src/**/*.riot", "src/global.d.ts"],
   "exclude": ["node_modules"]
 }
